@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -50,7 +51,8 @@ namespace _20170919_CadenesDatesDoubles
         private void validaAdrecaRegExp()
         {
             string paraula = "[a-z0-9áéíóúàèìòùïüâêîôû\\/\\-]{2,}";
-            bool adrecaCorrecta = Regex.IsMatch(txtAdreca.Text.Trim().ToLower(), $"^{paraula}([ ]{paraula})+$");
+            bool adrecaCorrecta = Regex.IsMatch(txtAdreca.Text.Trim().ToLower(),
+                $"^{paraula}([ ]{paraula})+$");
             SolidColorBrush unPutoColor;
             if (!adrecaCorrecta)
             {
@@ -102,18 +104,68 @@ namespace _20170919_CadenesDatesDoubles
                 }*/
 
             }
+            mostraErrorTextBox(adrecaCorrecta, txtAdreca);
 
-            SolidColorBrush unPutoColor;
-            if (!adrecaCorrecta)
+        }
+
+        private void txtPreu_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string sPreu = txtPreu.Text.Trim();
+            bool esCorrecte = true;
+            try
             {
-                unPutoColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                NumberStyles style = NumberStyles.AllowDecimalPoint; //|NumberStyles.AllowThousands;
+                CultureInfo ci = new CultureInfo("ca-ES");
+                double preu = Double.Parse(sPreu,style, ci);
+                //txtDataNaixement.Text = preu.ToString("####.00", new CultureInfo("en-US"));
+            }
+            catch ( Exception ex)
+            {
+                esCorrecte = false;
+            }
+            mostraErrorTextBox(esCorrecte, txtPreu);
+        }
+
+        private void txtDataNaixement_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string sData = txtDataNaixement.Text.Trim();
+            bool esCorrecte = true;
+            try
+            {
+
+                //DateTime ara = DateTime.Now;
+                //DateTime avui = DateTime.Today;
+                //DateTime diaArbitrari = new DateTime(2010, 12, 31);
+                //DateTime dema = avui.AddDays(1);
+
+                DateTime dt = DateTime.ParseExact(
+                    sData, "dd/MM/yyyy", 
+                    System.Globalization.CultureInfo.InvariantCulture);
+                esCorrecte = dt.Year >= 1900;
+              
+
+            }
+            catch (Exception ex)
+            {
+                esCorrecte = false;
+            }
+            mostraErrorTextBox(esCorrecte, txtDataNaixement);
+        }
+
+        private void mostraErrorTextBox(bool esCorrecte, TextBox t)
+        {
+
+            SolidColorBrush unColor;
+            if (!esCorrecte)
+            {
+                unColor = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
             }
             else
             {
-                unPutoColor = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+                unColor = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
             }
-            txtAdreca.Background = unPutoColor;
-
+            t.Background = unColor;
         }
+
     }
 }

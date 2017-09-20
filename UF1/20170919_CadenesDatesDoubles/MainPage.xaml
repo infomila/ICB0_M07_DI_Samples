@@ -9,11 +9,27 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Orientation="Vertical">
-            <TextBlock Text="Adreça"></TextBlock>
-            <TextBox x:Name="txtAdreca" 
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Adreça" d:IsHidden="True"/>
+                <TextBox x:Name="txtAdreca" 
                      TextChanged="txtAdreca_TextChanged"
                      PlaceholderText="&lt;Aquí va l'adreça&gt;" ></TextBox>
-            <Button Content="Valida" Click="Button_Click"></Button>
+                <Button Content="Valida" Click="Button_Click"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Preu"></TextBlock>
+                <TextBox 
+                x:Name="txtPreu" 
+                TextChanged="txtPreu_TextChanged"
+                PlaceholderText="&lt;Aquí va el preu&gt;" ></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Data de naixement"></TextBlock>
+                <TextBox 
+                    TextChanged="txtDataNaixement_TextChanged"
+                x:Name="txtDataNaixement"                      
+                PlaceholderText="&lt;dd/mm/yyyy&gt;" ></TextBox>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>
