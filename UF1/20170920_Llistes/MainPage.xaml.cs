@@ -36,7 +36,61 @@ namespace _20170920_Llistes
 
             notes.RemoveAt(0);
             notes.Insert(2, 45);
+            string llista = "";
+            for(int i = 0; i < notes.Count; i++)
+            {
+                llista += (notes[i] + ",");
+            }
+            foreach(int nota in notes)
+            {
+                llista += nota + ",";
+            }
+            //----------------------------------.
+            Dictionary<int, string> nomPerDorsal = new Dictionary<int, string>();
+            Dictionary<string, int> dorsalsPerNom = new Dictionary<string, int>();
+            nomPerDorsal[10] = "Messi";
+            nomPerDorsal.Add(9, "Patata");
+
+            dorsalsPerNom["Messi"] = 10;
+            dorsalsPerNom["Patata"] = 9;
+
+            string nomJugador10 = nomPerDorsal[10];
+            int dorsalMessi = dorsalsPerNom["Messi"];
+
+            try
+            {
+                string nomJugadorNoExistent = nomPerDorsal[2342342];
+            }
+            catch (Exception)
+            {
+                // el jugador no existia
+            }
+            string totsElsNoms = "";
+            foreach( int dorsal in nomPerDorsal.Keys)
+            {
+                totsElsNoms += nomPerDorsal[dorsal] +",";
+            }
+
+            foreach( string nom2 in nomPerDorsal.Values)
+            {
+                totsElsNoms += nom2 + ",";
+            }
+            foreach( var tupla in nomPerDorsal)
+            {
+                totsElsNoms += tupla.Value+ "amb dorsal "+tupla.Key + ",";
+            }
+            //------------------------------
+            if(nomPerDorsal.ContainsKey(10))
+            {
+                string nomExisteixSegur = nomPerDorsal[10];
+            }
+            // cerca per clau de forma segura ( si  no el troba, no peta )
+            string nom;
+            bool heTrobatLaClau = nomPerDorsal.TryGetValue(10, out nom);
             
+
+
+
 
         }
     }
