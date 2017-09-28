@@ -47,6 +47,7 @@ namespace _20170928_ListBoxesIRadioButtons
         private void lsbPreguntes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int indexPreguntaSeleccionada = lsbPreguntes.SelectedIndex;
+            lsbPreguntes.SelectedItem.ToString();
             mostrarPregunta(indexPreguntaSeleccionada);
         }
 
