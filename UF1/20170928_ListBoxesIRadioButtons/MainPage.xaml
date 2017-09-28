@@ -21,7 +21,7 @@
         <ListBox x:Name="lsbPreguntes" 
                  Grid.Column="0" 
                  Grid.Row="0" 
-                 Grid.RowSpan="2">
+                 Grid.RowSpan="2" SelectionChanged="lsbPreguntes_SelectionChanged">
             <ListBoxItem>1</ListBoxItem>
             <ListBoxItem>2</ListBoxItem>
             <ListBoxItem>3</ListBoxItem>
