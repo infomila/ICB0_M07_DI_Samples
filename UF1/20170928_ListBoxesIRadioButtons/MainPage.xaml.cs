@@ -26,5 +26,10 @@ namespace _20170928_ListBoxesIRadioButtons
         {
             this.InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }
