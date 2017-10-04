@@ -23,6 +23,10 @@ namespace _20170928_ListBoxesIRadioButtons
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        private List<Pregunta> mPreguntes;
+
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -30,15 +34,15 @@ namespace _20170928_ListBoxesIRadioButtons
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            List<Pregunta> preguntes = Pregunta.GetPreguntes();
+            mPreguntes = Pregunta.GetPreguntes();
             lsbPreguntes.Items.Clear(); // netejar tota la llista d'ítems actual
             // Recorregut sobre totes les preguntes
-            foreach (Pregunta p in preguntes) {
+            foreach (Pregunta p in mPreguntes) {
                 ListBoxItem item = new ListBoxItem(); // Creem un ítem
                 item.Content = p.Numero; // assignem el text de l'ítem al número de la pregunat
                 lsbPreguntes.Items.Add(item);
             }
-            if (preguntes.Count > 0)
+            if (mPreguntes.Count > 0)
             {
                 lsbPreguntes.SelectedIndex = 0;
             }
@@ -69,7 +73,31 @@ namespace _20170928_ListBoxesIRadioButtons
                 b.Content = lletra+") "+resposta;
                 i++;
                 lletra++;
+                // ara hauríem de ser capaços d'activar o desactivar el radio o el checkbox
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+            ToggleButton b = (ToggleButton)sender;
+            int idxPregunta = Int32.Parse(b.Tag.ToString());
+
+            int indexPreguntaSeleccionada = lsbPreguntes.SelectedIndex;
+
+            mPreguntes[indexPreguntaSeleccionada].RespostesSeleccionades.Add(idxPregunta);
+
+
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            ToggleButton b = (ToggleButton)sender;
+            int idxPregunta = Int32.Parse(b.Tag.ToString());
+
+            int indexPreguntaSeleccionada = lsbPreguntes.SelectedIndex;
+
+            mPreguntes[indexPreguntaSeleccionada].RespostesSeleccionades.Remove(idxPregunta);
         }
     }
 }

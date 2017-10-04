@@ -43,18 +43,18 @@
 
         <StackPanel x:Name="stpMonoreposta" 
                      Orientation="Vertical" Grid.Row="1" Grid.Column="1" Padding="20">
-            <RadioButton Content="a) Blah blah blah" ></RadioButton>
-            <RadioButton Content="b) Blah blah blah" ></RadioButton>
-            <RadioButton Content="c) Blah blah blah" ></RadioButton>
-            <RadioButton Content="d) Blah blah blah" ></RadioButton>
+            <RadioButton Content="a) Blah blah blah" Tag="0" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"  ></RadioButton>
+            <RadioButton Content="b) Blah blah blah" Tag="1" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" ></RadioButton>
+            <RadioButton Content="c) Blah blah blah" Tag="2" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" ></RadioButton>
+            <RadioButton Content="d) Blah blah blah" Tag="3" Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" ></RadioButton>
         </StackPanel>
         <StackPanel x:Name="stpMultireposta"
                    Visibility="Collapsed" 
                     Orientation="Vertical" Grid.Row="1" Grid.Column="1" Padding="20">
-            <CheckBox Content="a) Blah blah blah"  ></CheckBox>
-            <CheckBox Content="b) Blah blah blah" ></CheckBox>
-            <CheckBox Content="c) Blah blah blah" ></CheckBox>
-            <CheckBox Content="d) Blah blah blah" ></CheckBox>
+            <CheckBox Content="a) Blah blah blah" Tag="0"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" ></CheckBox>
+            <CheckBox Content="b) Blah blah blah" Tag="1"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"></CheckBox>
+            <CheckBox Content="c) Blah blah blah" Tag="2"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked" ></CheckBox>
+            <CheckBox Content="d) Blah blah blah" Tag="3"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"></CheckBox>
         </StackPanel>
         <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                 Background="Lime" Content="Validar"

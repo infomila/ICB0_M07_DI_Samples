@@ -41,7 +41,7 @@ namespace _20170928_ListBoxesIRadioButtons.Model
             set { mEsMultireposta = value; }
         }
 
-        private List<int> mRespostesCorrectes;
+        private List<int> mRespostesCorrectes = new List<int>();
 
         public List<int> RespostesCorrectes
         {
@@ -49,7 +49,7 @@ namespace _20170928_ListBoxesIRadioButtons.Model
             set { mRespostesCorrectes = value; }
         }
 
-        private List<int> mRespostesSeleccionades;
+        private List<int> mRespostesSeleccionades = new List<int>();
 
         public List<int> RespostesSeleccionades
         {
