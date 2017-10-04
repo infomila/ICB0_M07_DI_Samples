@@ -25,7 +25,7 @@ namespace _20170928_ListBoxesIRadioButtons
     {
 
         private List<Pregunta> mPreguntes;
-
+        private bool mNoDisparisEvents = false;
 
         public MainPage()
         {
@@ -57,28 +57,37 @@ namespace _20170928_ListBoxesIRadioButtons
 
         private void mostrarPregunta(int indexPreguntaSeleccionada)
         {
-            List<Pregunta> preguntes = Pregunta.GetPreguntes();
-            Pregunta p = preguntes[indexPreguntaSeleccionada];
+            //List<Pregunta> preguntes = Pregunta.GetPreguntes();
+            Pregunta p = mPreguntes[indexPreguntaSeleccionada];
             txbPregunta.Text = p.TextPregunta;
             StackPanel panellSeleccionat = p.EsMultiresposta ? stpMultireposta : stpMonoreposta;
             StackPanel panellAmagat = p.EsMultiresposta ?  stpMonoreposta: stpMultireposta;
             panellSeleccionat.Visibility = Visibility.Visible;
             panellAmagat.Visibility = Visibility.Collapsed;
 
+
+            mNoDisparisEvents = true;
             int i = 0;
             char lletra = 'a';
             foreach ( string resposta in p.Respostes)
             {
-                ButtonBase b = (ButtonBase)panellSeleccionat.Children[i];
+                ToggleButton b = (ToggleButton)panellSeleccionat.Children[i];
                 b.Content = lletra+") "+resposta;
+
+                // ara hauríem de ser capaços d'activar o desactivar el radio o el checkbox
+
+                bool respostaSeleccionada = p.RespostesSeleccionades.Contains(i);
+                b.IsChecked =  respostaSeleccionada;
+
                 i++;
                 lletra++;
-                // ara hauríem de ser capaços d'activar o desactivar el radio o el checkbox
             }
+            mNoDisparisEvents = false;
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            if (mNoDisparisEvents) return;
 
             ToggleButton b = (ToggleButton)sender;
             int idxPregunta = Int32.Parse(b.Tag.ToString());
@@ -92,6 +101,8 @@ namespace _20170928_ListBoxesIRadioButtons
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+            if (mNoDisparisEvents) return;
+
             ToggleButton b = (ToggleButton)sender;
             int idxPregunta = Int32.Parse(b.Tag.ToString());
 
