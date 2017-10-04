@@ -25,7 +25,34 @@ namespace _20170928_ListBoxesIRadioButtons
     {
 
         private List<Pregunta> mPreguntes;
-        private bool mNoDisparisEvents = false;
+        //private bool mNoDisparisEvents = false;
+
+
+
+        private  void programarEventsRadioICheckboxes(bool pActivar)
+        {
+            List<UIElement> llista = new List<UIElement>();
+            llista.AddRange(stpMonoreposta.Children);
+            llista.AddRange(stpMultireposta.Children);
+            foreach (ToggleButton t in llista)
+            {
+                if (pActivar)
+                {
+                    t.Checked += CheckBox_Checked;
+                    t.Unchecked += CheckBox_Unchecked;
+                }
+                else
+                {
+                    t.Checked -= CheckBox_Checked;
+                    t.Unchecked -= CheckBox_Unchecked;
+                }
+            }
+            
+
+            
+        }
+
+    
 
         public MainPage()
         {
@@ -34,6 +61,7 @@ namespace _20170928_ListBoxesIRadioButtons
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            
             mPreguntes = Pregunta.GetPreguntes();
             lsbPreguntes.Items.Clear(); // netejar tota la llista d'ítems actual
             // Recorregut sobre totes les preguntes
@@ -46,6 +74,8 @@ namespace _20170928_ListBoxesIRadioButtons
             {
                 lsbPreguntes.SelectedIndex = 0;
             }
+
+            programarEventsRadioICheckboxes(true);
         }
 
         private void lsbPreguntes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -66,7 +96,7 @@ namespace _20170928_ListBoxesIRadioButtons
             panellAmagat.Visibility = Visibility.Collapsed;
 
 
-            mNoDisparisEvents = true;
+            programarEventsRadioICheckboxes(false);
             int i = 0;
             char lletra = 'a';
             foreach ( string resposta in p.Respostes)
@@ -82,26 +112,31 @@ namespace _20170928_ListBoxesIRadioButtons
                 i++;
                 lletra++;
             }
-            mNoDisparisEvents = false;
+            programarEventsRadioICheckboxes(true);
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (mNoDisparisEvents) return;
+            //if (mNoDisparisEvents) return;
 
             ToggleButton b = (ToggleButton)sender;
             int idxPregunta = Int32.Parse(b.Tag.ToString());
 
             int indexPreguntaSeleccionada = lsbPreguntes.SelectedIndex;
 
-            mPreguntes[indexPreguntaSeleccionada].RespostesSeleccionades.Add(idxPregunta);
+            List<int> respostesSelecionades = 
+                mPreguntes[indexPreguntaSeleccionada].RespostesSeleccionades;
+            if (!respostesSelecionades.Contains(idxPregunta))
+            {
+                respostesSelecionades.Add(idxPregunta);
+            }
 
 
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (mNoDisparisEvents) return;
+            //if (mNoDisparisEvents) return;
 
             ToggleButton b = (ToggleButton)sender;
             int idxPregunta = Int32.Parse(b.Tag.ToString());
