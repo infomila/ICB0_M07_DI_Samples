@@ -23,6 +23,10 @@ namespace _20171005_LlistesiCombos
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        List<ObservableCollection<string>> municipisPerProvincia =
+                new List<ObservableCollection<string>>();
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -75,8 +79,43 @@ namespace _20171005_LlistesiCombos
             mProvincies.Add("Girona");
             mProvincies.Add("Tarragona");
 
+
+
+
+            ObservableCollection<string> llistaMunicipisBarcelona =
+                new ObservableCollection<string>();
+            llistaMunicipisBarcelona.Add("Barcelona");
+            llistaMunicipisBarcelona.Add("Igualada");
+            llistaMunicipisBarcelona.Add("Mataró");
+            llistaMunicipisBarcelona.Add("Sant Esteve Sesrovires");
+            llistaMunicipisBarcelona.Add("Keep calm");
+            municipisPerProvincia.Add(llistaMunicipisBarcelona);
+            //----------------------------------------------------------
+            ObservableCollection<string> llistaMunicipisTarragona =
+                new ObservableCollection<string>()
+                {
+                    "Tarragona", "Reus", "Salou"
+                };
+            municipisPerProvincia.Add(llistaMunicipisTarragona);
+            //----------------------------------------------------------
+            ObservableCollection<string> llistaMunicipisGirona =
+                new ObservableCollection<string>()
+                {
+                    "Girona", "Figueres", "Salt"
+                };
+            municipisPerProvincia.Add(llistaMunicipisGirona);
+            //----------------------------------------------------------
+            ObservableCollection<string> llistaMunicipisLleida =
+                new ObservableCollection<string>()
+                {
+                    "Lleida", "Tremp", "Sort"
+                };
+            municipisPerProvincia.Add(llistaMunicipisLleida);
+            //----------------------------------------------------------
+
             cboProvincies.ItemsSource = mProvincies;
 
+ 
         }
 
         private void btnAfegir_Click(object sender, RoutedEventArgs e)
@@ -85,7 +124,18 @@ namespace _20171005_LlistesiCombos
             if (!mProvincies.Contains(novaProvincia))
             {
                 mProvincies.Add(novaProvincia);
+                municipisPerProvincia.Add(new ObservableCollection<string>());
             }
+        }
+
+        private void cboProvincies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cboProvincies.SelectedIndex >= 0)
+            {
+                cboMunicipis.ItemsSource = municipisPerProvincia[cboProvincies.SelectedIndex];
+            }
+
+            
         }
     }
 }

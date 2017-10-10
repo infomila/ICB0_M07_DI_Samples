@@ -8,10 +8,16 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     >
+    
 
     <StackPanel Padding="20" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <TextBox x:Name="txtProvincia"></TextBox>
-        <Button x:Name="btnAfegir" Click="btnAfegir_Click" Content="Afegir"></Button>
-        <ComboBox x:Name="cboProvincies" ></ComboBox>
+        <Button x:Name="btnAfegir" Click="btnAfegir_Click" 
+                Content="Afegir"></Button>
+        <StackPanel Orientation="Horizontal">
+            <ComboBox x:Name="cboProvincies" SelectionChanged="cboProvincies_SelectionChanged"></ComboBox>
+            <ComboBox x:Name="cboMunicipis" Margin="30 0 0 0" ></ComboBox>
+        </StackPanel>
+
     </StackPanel>
 </Page>
