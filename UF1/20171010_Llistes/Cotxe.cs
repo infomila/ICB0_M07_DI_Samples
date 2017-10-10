@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace _20171010_Llistes
 {
@@ -72,9 +73,17 @@ namespace _20171010_Llistes
             get { return mColor; }
             set { mColor = value; }
         }
+        //----------------------------------------
+        public Brush Pinzell
+        {
+            get { return new SolidColorBrush(mColor); }
+        }
 
 
-
+        public override string ToString()
+        {
+            return "M:" + Matricula + " , marca:" + Marca + ", model:" + Model;
+        }
 
 
 

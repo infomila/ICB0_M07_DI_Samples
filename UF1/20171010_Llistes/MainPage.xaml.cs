@@ -26,5 +26,10 @@ namespace _20171010_Llistes
         {
             this.InitializeComponent();
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            lsvCotxes.ItemsSource = Cotxe.getCotxes();
+        }
     }
 }
