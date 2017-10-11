@@ -49,6 +49,6 @@
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="lsvCotxes" ItemTemplate="{StaticResource DataTemplate1}"></GridView>
+        <ListView x:Name="lsvCotxes" ItemTemplate="{StaticResource DataTemplate1}"></ListView>
     </Grid>
 </Page>
