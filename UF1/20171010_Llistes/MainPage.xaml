@@ -13,6 +13,7 @@
                     <ColumnDefinition Width="80"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
@@ -32,6 +33,17 @@
                 <TextBlock Grid.Row="1" Grid.Column="2"
                            Padding="10"
                            Text="{x:Bind Model}"></TextBlock>
+                <Border BorderBrush="Black" 
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        BorderThickness="1" CornerRadius="4"  >
+                    <Border.Background>
+                        <ImageBrush Stretch="Fill" 
+                                    ImageSource="{x:Bind RutaImatgeMarca}"/>
+                    </Border.Background>
+
+                </Border>
             </Grid>
         </DataTemplate>
     </Page.Resources>

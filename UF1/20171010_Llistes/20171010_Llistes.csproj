@@ -108,6 +108,9 @@
     <None Include="20171010_Llistes_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Opel.png" />
+    <Content Include="Assets\Peugeot.png" />
+    <Content Include="Assets\Seat.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

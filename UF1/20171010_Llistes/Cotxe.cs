@@ -86,7 +86,10 @@ namespace _20171010_Llistes
         }
 
 
-
+        public String RutaImatgeMarca
+        {
+            get { return "Assets/" + Marca + ".png"; }
+        }
 
         #endregion
     }
