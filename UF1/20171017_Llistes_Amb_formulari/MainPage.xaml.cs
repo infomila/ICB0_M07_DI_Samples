@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -29,7 +30,41 @@ namespace _20171010_Llistes
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            
             lsvCotxes.ItemsSource = Cotxe.getCotxes();
+            cboMarca.ItemsSource = Cotxe.getMarques();
+        }
+
+        private void lsvCotxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if( lsvCotxes.SelectedValue!=null)
+            {
+                Cotxe c = (Cotxe)lsvCotxes.SelectedValue;
+                txbModel.Text = c.Model;
+                txbMatricula.Text = c.Matricula;
+                cboMarca.SelectedValue = c.Marca;
+                clpColor.Color = c.ColorCotxe;
+            }
+        }
+
+      
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (lsvCotxes.SelectedValue != null)
+            {
+                Cotxe c = (Cotxe)lsvCotxes.SelectedValue;
+                c.Model = txbModel.Text;
+                c.Matricula = txbMatricula.Text;
+                c.Marca = cboMarca.SelectedValue.ToString();
+                c.ColorCotxe = clpColor.Color;           
+            }
+            //-----------------------------------------------
+            // Actualització de la llista "a lo caçurro"
+            //object cotxesTmp = lsvCotxes.ItemsSource;
+            //lsvCotxes.ItemsSource = null;
+            //lsvCotxes.ItemsSource = cotxesTmp;
+            //-----------------------------------------------
         }
     }
 }

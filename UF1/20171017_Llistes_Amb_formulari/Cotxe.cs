@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,22 +10,45 @@ using Windows.UI.Xaml.Media;
 
 namespace _20171010_Llistes
 {
-    class Cotxe
+    class Cotxe : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
+        private void NotifyPropertyChanged(String info)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(info));
+        }
+
+
+        public static List<String> getMarques()
+        {
+            //return getCotxes().Select(element => element.Marca).Distinct().ToList<string>();
+
+            List<String> marques = new List<String>();
+            foreach (Cotxe c in getCotxes())
+            {
+                if (!marques.Contains(c.Marca))
+                {
+                    marques.Add(c.Marca);
+                }
+            }
+            return marques;
+        }
 
         public static ObservableCollection<Cotxe>
             getCotxes()
         {
-            ObservableCollection<Cotxe> llistaCotxes =
-                new ObservableCollection<Cotxe>();
-
-            llistaCotxes.Add(new Cotxe("1232-JLK", "2008", "Peugeot", Colors.Aquamarine));
+            ItemsChangeObservableCollection<Cotxe> llistaCotxes =
+                new ItemsChangeObservableCollection<Cotxe>();
+             llistaCotxes.Add(new Cotxe("1232-JLK", "2008", "Peugeot", Colors.Aquamarine));
             llistaCotxes.Add(new Cotxe("2345-PTR", "Ibiza", "Seat", Colors.Red));
             llistaCotxes.Add(new Cotxe("8234-PTR", "Leon", "Seat", Colors.Green));
             llistaCotxes.Add(new Cotxe("6523-YYY", "Meriva", "Opel", Colors.Blue));
 
             return llistaCotxes;
         }
+ 
 
         //----------------------------------------------------
         public Cotxe(String pMatricula, 
@@ -46,7 +70,10 @@ namespace _20171010_Llistes
         public String Matricula
         {
             get { return mMatricula; }
-            set { mMatricula = value; }
+            set {
+                mMatricula = value;
+                NotifyPropertyChanged("Matricula");
+            }
         }
         //----------------------------------------
         private String mMarca;
@@ -54,7 +81,10 @@ namespace _20171010_Llistes
         public String Marca
         {
             get { return mMarca; }
-            set { mMarca = value; }
+            set {
+                mMarca = value;
+                NotifyPropertyChanged("Marca");
+            }
         }
         //----------------------------------------
         private String mModel;
@@ -62,7 +92,10 @@ namespace _20171010_Llistes
         public String Model
         {
             get { return mModel; }
-            set { mModel = value; }
+            set {
+                mModel = value;
+                NotifyPropertyChanged("Model");
+            }
         }
         //----------------------------------------
 
@@ -71,7 +104,10 @@ namespace _20171010_Llistes
         public Color ColorCotxe
         {
             get { return mColor; }
-            set { mColor = value; }
+            set {
+                mColor = value;
+                NotifyPropertyChanged("ColorCotxe");
+            }
         }
         //----------------------------------------
         public Brush Pinzell
