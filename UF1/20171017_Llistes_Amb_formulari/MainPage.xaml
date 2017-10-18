@@ -89,8 +89,16 @@
                 <RowDefinition Height="auto"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
-                <Button  Margin="20" FontSize="20" FontFamily="Segoe MDL2 Assets"></Button>
-                <Button  Margin="20" FontSize="20" FontFamily="Segoe MDL2 Assets"></Button>
+                <Button x:Name="btnAfegir" Click="btnAfegir_Click" Margin="20" FontSize="20" FontFamily="Segoe MDL2 Assets">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Afegir" PlacementTarget="{Binding ElementName=btnAfegir}" />
+                    </ToolTipService.ToolTip>
+                </Button>
+                <Button  x:Name="btnEsborrar" Margin="20" FontSize="20" FontFamily="Segoe MDL2 Assets">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="Esborrar" PlacementTarget="{Binding ElementName=btnEsborrar}" />
+                    </ToolTipService.ToolTip>
+                </Button>
             </StackPanel>
             <Grid Grid.Row="1" Margin="10">
                 <Grid.RowDefinitions>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -24,6 +25,16 @@ namespace _20171010_Llistes
     public sealed partial class MainPage : Page
     {
 
+        private enum MODE
+        {
+            EDICIO,
+            NOU
+        }
+
+        private MODE mMode;
+
+
+        
 
         private ObservableCollection<Cotxe> mCotxes;
 
@@ -43,6 +54,9 @@ namespace _20171010_Llistes
         {
             if( lsvCotxes.SelectedValue!=null)
             {
+
+                mMode = MODE.EDICIO;
+
                 Cotxe c = (Cotxe)lsvCotxes.SelectedValue;
                 txbModel.Text = c.Model;
                 txbMatricula.Text = c.Matricula;
@@ -55,27 +69,54 @@ namespace _20171010_Llistes
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (lsvCotxes.SelectedValue != null)
+            if (valida())
             {
-                Cotxe c = (Cotxe)lsvCotxes.SelectedValue;
-                c.Model = txbModel.Text;
-                c.Matricula = txbMatricula.Text;
-                c.Marca = cboMarca.SelectedValue.ToString();
-                c.ColorCotxe = clpColor.Color;
+                // és vàlid
+                Cotxe c = new Cotxe(
+                            txbMatricula.Text, 
+                            txbModel.Text, 
+                            cboMarca.SelectedValue.ToString(), 
+                            clpColor.Color);
+            
+                if (mMode == MODE.NOU)
+                {
+                    mCotxes.Add(c);
+                } else {                    
+                    int idx = mCotxes.IndexOf((Cotxe)lsvCotxes.SelectedValue);
+                    // "matxaquem" l'element amb un de nou.....si no, no s'actualitza.
+                    mCotxes[idx] = c;                   
+                }
+                lsvCotxes.SelectedValue = c;
 
-                
-                int idx = mCotxes.IndexOf(c);
-                // "matxaquem" l'element amb un de nou.....si no, no s'actualitza.
-                mCotxes[idx] = 
-                    new _20171010_Llistes.Cotxe(
-                        txbMatricula.Text, txbModel.Text, cboMarca.SelectedValue.ToString(), clpColor.Color);
+                //-----------------------------------------------
+                // Actualització de la llista "a lo caçurro"
+                //object cotxesTmp = lsvCotxes.ItemsSource;
+                //lsvCotxes.ItemsSource = null;
+                //lsvCotxes.ItemsSource = cotxesTmp;
+                //-----------------------------------------------
             }
-            //-----------------------------------------------
-            // Actualització de la llista "a lo caçurro"
-            //object cotxesTmp = lsvCotxes.ItemsSource;
-            //lsvCotxes.ItemsSource = null;
-            //lsvCotxes.ItemsSource = cotxesTmp;
-            //-----------------------------------------------
+        }
+
+        private bool valida()
+        {
+            return true;
+        }
+
+        private void btnAfegir_Click(object sender, RoutedEventArgs e)
+        {
+            mMode = MODE.NOU;
+            // deseleccionar el valor de la llista
+            lsvCotxes.SelectedValue = null;
+            //lsvCotxes.SelectedIndex = -1; // Això fa el mateix que l'anterior
+
+            txbMatricula.Text = "";
+            txbModel.Text = "";
+            cboMarca.SelectedValue = null;
+            clpColor.Color = Color.FromArgb(255, 0, 255, 0);
+
+            //activar edició matricula
+            txbMatricula.IsEnabled = true;
+
         }
     }
 }
