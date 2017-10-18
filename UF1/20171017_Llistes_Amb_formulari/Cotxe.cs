@@ -39,8 +39,8 @@ namespace _20171010_Llistes
         public static ObservableCollection<Cotxe>
             getCotxes()
         {
-            ItemsChangeObservableCollection<Cotxe> llistaCotxes =
-                new ItemsChangeObservableCollection<Cotxe>();
+            ObservableCollection<Cotxe> llistaCotxes =
+                new ObservableCollection<Cotxe>();
              llistaCotxes.Add(new Cotxe("1232-JLK", "2008", "Peugeot", Colors.Aquamarine));
             llistaCotxes.Add(new Cotxe("2345-PTR", "Ibiza", "Seat", Colors.Red));
             llistaCotxes.Add(new Cotxe("8234-PTR", "Leon", "Seat", Colors.Green));

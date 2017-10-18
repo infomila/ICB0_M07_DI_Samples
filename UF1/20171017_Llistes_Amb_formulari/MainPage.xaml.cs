@@ -23,6 +23,10 @@ namespace _20171010_Llistes
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+
+        private ObservableCollection<Cotxe> mCotxes;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -30,8 +34,8 @@ namespace _20171010_Llistes
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            lsvCotxes.ItemsSource = Cotxe.getCotxes();
+            mCotxes = Cotxe.getCotxes();
+            lsvCotxes.ItemsSource = mCotxes;
             cboMarca.ItemsSource = Cotxe.getMarques();
         }
 
@@ -57,7 +61,14 @@ namespace _20171010_Llistes
                 c.Model = txbModel.Text;
                 c.Matricula = txbMatricula.Text;
                 c.Marca = cboMarca.SelectedValue.ToString();
-                c.ColorCotxe = clpColor.Color;           
+                c.ColorCotxe = clpColor.Color;
+
+                
+                int idx = mCotxes.IndexOf(c);
+                // "matxaquem" l'element amb un de nou.....si no, no s'actualitza.
+                mCotxes[idx] = 
+                    new _20171010_Llistes.Cotxe(
+                        txbMatricula.Text, txbModel.Text, cboMarca.SelectedValue.ToString(), clpColor.Color);
             }
             //-----------------------------------------------
             // Actualització de la llista "a lo caçurro"
