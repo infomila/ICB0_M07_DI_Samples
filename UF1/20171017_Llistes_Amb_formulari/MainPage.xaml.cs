@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -48,6 +49,27 @@ namespace _20171010_Llistes
             mCotxes = Cotxe.getCotxes();
             lsvCotxes.ItemsSource = mCotxes;
             cboMarca.ItemsSource = Cotxe.getMarques();
+
+            //-------------------------
+            // programació dels events de canvi en el formulari
+            txbMatricula.TextChanged += _TextChanged;
+            txbModel.TextChanged += _TextChanged;
+            cboMarca.SelectionChanged += CboMarca_SelectionChanged;
+
+            //desactivem el botó de desar
+
+            btnSave.IsEnabled = false;
+
+        }
+
+        private void CboMarca_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            valida();
+        }
+
+        private void _TextChanged(object sender, TextChangedEventArgs e)
+        {
+            valida();
         }
 
         private void lsvCotxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -99,7 +121,68 @@ namespace _20171010_Llistes
 
         private bool valida()
         {
-            return true;
+
+            bool valida = true;
+            valida &= validaMatricula();
+            valida &= validaModel();
+            valida &= validaMarca();
+
+            btnSave.IsEnabled = valida;
+            return valida;
+        }
+
+        private bool validaMarca()
+        {
+            bool ok = cboMarca.SelectedValue != null;
+            mostrarCampAmbErrors(cboMarca, ok, "Marca obligatoria");
+            return ok;
+        }
+
+        private bool validaModel()
+        {
+            bool ok = txbModel.Text.Length >= 2;
+            mostrarCampAmbErrors(txbModel, ok, "Longitud mínima 2 caràcters");     
+
+            return ok;
+        }
+
+        private bool validaMatricula()
+        {
+            string consonant =  "[WRTYPSDFGHJKLZXCVBNM]";
+            String m = txbMatricula.Text.Trim();
+            bool matriculaValida = 
+                Regex.IsMatch(m, "^[0-9]{4,4}-"+consonant+"{3,3}$");
+            bool repetida = false;
+            if (matriculaValida)
+            {                
+                foreach (Cotxe c in mCotxes)
+                {
+                    if (c.Matricula.Equals(m))
+                    {
+                        repetida = true;
+                        matriculaValida = false;
+                        break;
+                    }
+                }
+            }
+            mostrarCampAmbErrors(txbMatricula, matriculaValida, repetida ? "Matricula repetida":"Format incorrecte");
+            return matriculaValida;
+        }
+
+        private void mostrarCampAmbErrors(Control txb, bool valid, string missatgeError)
+        {
+            Color c = Colors.White;            
+            if (!valid)
+            {
+                c = Colors.Red;
+            }
+            txb.Background = new SolidColorBrush(c);
+
+            ToolTip t = new ToolTip();
+            t.Content = valid ? "" : missatgeError;
+            t.PlacementTarget = txb;
+            txbModel.SetValue(ToolTipService.ToolTipProperty, t);
+            t.IsOpen = true;
         }
 
         private void btnAfegir_Click(object sender, RoutedEventArgs e)
