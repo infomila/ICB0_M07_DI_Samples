@@ -28,14 +28,64 @@ namespace _20171010_Llistes
 
         private enum MODE
         {
+            BLOQUEJAT,
             EDICIO,
             NOU
         }
 
         private MODE mMode;
 
+        private MODE CURRENT_MODE
+        {
+            get
+            {
+                return mMode;
+            }
+            set
+            {
+                mMode = value;
+                ActivarControls(mMode != MODE.BLOQUEJAT);
+                btnSave.IsEnabled = false;
+                btnAfegir.IsEnabled = mMode !=MODE.NOU;
+                btnEsborrar.IsEnabled = mMode == MODE.EDICIO;
+                //activar edició matricula
+                txbMatricula.IsEnabled = mMode==MODE.NOU;
+                if (mMode == MODE.NOU || mMode == MODE.BLOQUEJAT)
+                {
+                    buidarFormulari();
+                }
+                if (mMode == MODE.NOU)
+                {                    
+                    valida();
+                }
+            }
+        }
 
-        
+        private void buidarFormulari()
+        {
+            // deseleccionar el valor de la llista
+            lsvCotxes.SelectedValue = null;
+            //lsvCotxes.SelectedIndex = -1; // Això fa el mateix que l'anterior
+
+            txbMatricula.Text = "";
+            txbModel.Text = "";
+            cboMarca.SelectedValue = null;
+            clpColor.Color = Color.FromArgb(255, 0, 255, 0);
+        }
+
+        private void ActivarControls(bool actius)
+        {
+            foreach (UIElement ctrl in grdForms.Children)
+            {
+                Type t = ctrl.GetType();
+                if (t==typeof(TextBox)|| t == typeof(ComboBox))
+                {
+                    ((Control)ctrl).IsEnabled = actius;
+
+                }
+            }
+        }
+
 
         private ObservableCollection<Cotxe> mCotxes;
 
@@ -56,9 +106,9 @@ namespace _20171010_Llistes
             txbModel.TextChanged += _TextChanged;
             cboMarca.SelectionChanged += CboMarca_SelectionChanged;
 
-            //desactivem el botó de desar
+            //desactivem el botó de desar            
 
-            btnSave.IsEnabled = false;
+            CURRENT_MODE = MODE.BLOQUEJAT;
 
         }
 
@@ -72,12 +122,17 @@ namespace _20171010_Llistes
             valida();
         }
 
+        private void clpColor_ColorChanged(object sender, Color color)
+        {
+            valida();
+        }
+
         private void lsvCotxes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if( lsvCotxes.SelectedValue!=null)
             {
 
-                mMode = MODE.EDICIO;
+                CURRENT_MODE = MODE.EDICIO;
 
                 Cotxe c = (Cotxe)lsvCotxes.SelectedValue;
                 txbModel.Text = c.Model;
@@ -100,7 +155,7 @@ namespace _20171010_Llistes
                             cboMarca.SelectedValue.ToString(), 
                             clpColor.Color);
             
-                if (mMode == MODE.NOU)
+                if (CURRENT_MODE == MODE.NOU)
                 {
                     mCotxes.Add(c);
                 } else {                    
@@ -121,6 +176,7 @@ namespace _20171010_Llistes
 
         private bool valida()
         {
+            if (CURRENT_MODE == MODE.BLOQUEJAT) return false;
 
             bool valida = true;
             valida &= validaMatricula();
@@ -148,58 +204,71 @@ namespace _20171010_Llistes
 
         private bool validaMatricula()
         {
+            
             string consonant =  "[WRTYPSDFGHJKLZXCVBNM]";
             String m = txbMatricula.Text.Trim();
             bool matriculaValida = 
                 Regex.IsMatch(m, "^[0-9]{4,4}-"+consonant+"{3,3}$");
-            bool repetida = false;
-            if (matriculaValida)
+            string missatgeError = "Format esperat: 0000-YYY";
+            // Si la matrícula és correcta, i és un cotxe nou, hem 
+            // de validar que no sigui repetida.
+            if (CURRENT_MODE == MODE.NOU && matriculaValida)
             {                
                 foreach (Cotxe c in mCotxes)
                 {
                     if (c.Matricula.Equals(m))
                     {
-                        repetida = true;
                         matriculaValida = false;
+                        missatgeError = "Matricula repetida";
                         break;
                     }
                 }
             }
-            mostrarCampAmbErrors(txbMatricula, matriculaValida, repetida ? "Matricula repetida":"Format incorrecte");
+            mostrarCampAmbErrors(txbMatricula, matriculaValida, missatgeError);
             return matriculaValida;
         }
 
-        private void mostrarCampAmbErrors(Control txb, bool valid, string missatgeError)
+        private void mostrarCampAmbErrors(Control control, bool valid, string missatgeError)
         {
             Color c = Colors.White;            
             if (!valid)
             {
                 c = Colors.Red;
             }
-            txb.Background = new SolidColorBrush(c);
+            control.Background = new SolidColorBrush(c);
 
-            ToolTip t = new ToolTip();
-            t.Content = valid ? "" : missatgeError;
-            t.PlacementTarget = txb;
-            txbModel.SetValue(ToolTipService.ToolTipProperty, t);
-            t.IsOpen = true;
-        }
+            //Busquem el ToolTìp associat al control si ja existia i l'amaguem
+            ToolTip t = (ToolTip)control.GetValue(ToolTipService.ToolTipProperty);
+            if (t != null)
+            {
+                t.IsOpen = false;
+            }
+            if(!valid) { 
+                // Creem un nou ToolTip
+                t = new ToolTip();
+                t.PlacementTarget = control; // indiquem que es mostre sobre el control actual
+                t.Placement = PlacementMode.Right; // n'indiquem també la posició
+                t.HorizontalOffset = 10;
+                t.VerticalOffset = 20;
+                // Desem el ToolTip al control
+                control.SetValue(ToolTipService.ToolTipProperty, t);
+                t.Content =   missatgeError;
+                t.IsOpen = true;
+            }            
+         }
 
         private void btnAfegir_Click(object sender, RoutedEventArgs e)
         {
-            mMode = MODE.NOU;
-            // deseleccionar el valor de la llista
-            lsvCotxes.SelectedValue = null;
-            //lsvCotxes.SelectedIndex = -1; // Això fa el mateix que l'anterior
+            CURRENT_MODE = MODE.NOU;
+        }
 
-            txbMatricula.Text = "";
-            txbModel.Text = "";
-            cboMarca.SelectedValue = null;
-            clpColor.Color = Color.FromArgb(255, 0, 255, 0);
-
-            //activar edició matricula
-            txbMatricula.IsEnabled = true;
-
+        private void btnEsborrar_Click(object sender, RoutedEventArgs e)
+        {
+            if(lsvCotxes.SelectedIndex != -1)
+            {
+                mCotxes.RemoveAt(lsvCotxes.SelectedIndex);
+                CURRENT_MODE = MODE.BLOQUEJAT;
+            }
         }
     }
 }
