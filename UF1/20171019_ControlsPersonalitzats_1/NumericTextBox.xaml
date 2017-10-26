@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txbNum" Height="80" VerticalAlignment="Center" Grid.Column="0"></TextBox>
+        <TextBox x:Name="txbNum" TextChanged="txbNum_TextChanged" Paste="txbNum_Paste" KeyDown="txbNum_KeyDown" FontSize="20" Height="80" VerticalAlignment="Center" Grid.Column="0"></TextBox>
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Vertical">
             <Button x:Name="btnUp" Click="btnUp_Click" Height="40">▲</Button>
             <Button x:Name="btnDown" Click="btnDown_Click" Height="40">▼</Button>

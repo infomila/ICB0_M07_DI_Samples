@@ -7,8 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <local:NumericTextBox             
-            Value="50" MinHeight="10" MaxValue="100"></local:NumericTextBox>
-    </Grid>
+    <StackPanel Margin="20" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <local:NumericTextBox  x:Name="ntb"  ValueChanged="NumericTextBox_ValueChanged"   
+            Value="50" MinHeight="10" MinValue="1" MaxValue="100"></local:NumericTextBox>
+
+        <TextBox x:Name="txtTheOther"> </TextBox>
+        <local:NumericTextBox  x:Name="nt1b"  ValueChanged="NumericTextBox_ValueChanged"   
+            Value="50" MinHeight="10" MinValue="1" MaxValue="100"></local:NumericTextBox>
+        <local:NumericTextBox  x:Name="ntb2"  ValueChanged="NumericTextBox_ValueChanged"   
+            Value="50" MinHeight="10" MinValue="1" MaxValue="100"></local:NumericTextBox>
+        <local:NumericTextBox  x:Name="ntb3"  ValueChanged="NumericTextBox_ValueChanged"   
+            Value="50" MinHeight="10" MinValue="1" MaxValue="100"></local:NumericTextBox>
+    </StackPanel>
 </Page>

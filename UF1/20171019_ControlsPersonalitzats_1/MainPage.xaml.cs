@@ -26,5 +26,14 @@ namespace _20171019_ControlsPersonalitzats_1
         {
             this.InitializeComponent();
         }
+
+        private void NumericTextBox_ValueChanged(object sender, EventArgs e)
+        {
+            if (txtTheOther != null)
+            {
+                txtTheOther.Text = ntb.Value + "";
+            }
+
+        }
     }
 }
