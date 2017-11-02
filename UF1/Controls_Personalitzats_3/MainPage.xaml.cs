@@ -31,8 +31,8 @@ namespace Controls_Personalitzats_3
         {
             int rotacio = int.Parse(((Button)sender).Tag.ToString());
 
-            ast.Angle += rotacio;
-            ast.Angle = ast.Angle + rotacio;
+            ast.Angle += 6*rotacio;
+            //ast.Angle = ast.Angle + rotacio;
 
             /*
             int rotacio = 0;
@@ -45,6 +45,39 @@ namespace Controls_Personalitzats_3
             }
             */
 
+        }
+
+        private void btnFire_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnUp_Click(object sender, RoutedEventArgs e)
+        {
+            int avanc = int.Parse(((Button)sender).Tag.ToString());
+
+            ast.MoveForward(avanc);
+        }
+
+        private void Page_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Windows.System.VirtualKey.Right:
+                    ast.Angle += 6;
+                    break;
+                case Windows.System.VirtualKey.Left:
+                    ast.Angle -= 6;
+                    break;
+                case Windows.System.VirtualKey.Up:
+                    ast.MoveForward(1);break;
+                case Windows.System.VirtualKey.Down:
+                    ast.MoveForward(-1); break;
+
+                case Windows.System.VirtualKey.Control:
+                    ast.Fire(); break;
+
+            }
         }
     }
 }

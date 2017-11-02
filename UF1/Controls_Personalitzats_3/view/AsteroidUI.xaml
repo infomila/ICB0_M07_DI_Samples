@@ -13,9 +13,25 @@
     <Grid  >
 
         <Canvas x:Name="cnvAsteroids" Background="Lime">
-            <Canvas.Projection>
-                <PlaneProjection CenterOfRotationX="25" CenterOfRotationY="30"/>
-            </Canvas.Projection>
+
+            <Polygon x:Name="plyAstKSemblaGraficaDeLaPractica"  Fill="Aquamarine"
+                     Stroke="Black" StrokeThickness="4"
+                     Points="0,100,  50, 75, 100, 30, 150, 50,200, 45, 250,100 "
+                      ></Polygon>
+            <Polygon x:Name="plyAstKSemblaGraficaDeLaPractic2a"  Fill="Bisque"
+                     Stroke="Black" StrokeThickness="4"
+                     Points="10,110,  60, 85, 110, 40, 160, 60,210, 55, 260,110 "
+                      ></Polygon>
+            <Line X1="50" Y1="75" X2="60" Y2="85" Stroke="Black" StrokeThickness="4"></Line>
+
+            <!--
+            <Rectangle Width="5" Height="20" Canvas.Left="22" Canvas.Top="0" Fill="Yellow" Stroke="Black">
+                <Rectangle.RenderTransform>
+                    <CompositeTransform Rotation="45" 
+                                        CenterX="2"
+                                        CenterY="30"/>
+                </Rectangle.RenderTransform>
+            </Rectangle>-->
             <Polygon x:Name="plyNau" 
                      Canvas.Left="{Binding X, ElementName=userControl}" 
                      Canvas.Top="{Binding Y, ElementName=userControl}" Fill="Aquamarine"
@@ -23,7 +39,7 @@
                      Points="25,0, 50,60,  25,50, 0, 60, 25, 0"
                       >
                 <Polygon.RenderTransform>
-                    <CompositeTransform Rotation="90" 
+                    <CompositeTransform Rotation="45" 
                                         CenterX="25"
                                         CenterY="30"/>
                 </Polygon.RenderTransform>
