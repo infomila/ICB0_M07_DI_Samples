@@ -1,0 +1,20 @@
+﻿<Page
+    x:Class="Controls_Personalitzats_3.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Controls_Personalitzats_3"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="btnEsquerra" Tag="-1" Padding="10" Click="Button_Click">&lt;</Button>
+            <Button x:Name="btnDreta" Tag="1" Padding="10" Click="Button_Click">&gt;</Button>
+        </StackPanel>
+        <local:Asteroid 
+            x:Name="ast"
+            Angle="10"
+              X="100" Y="100"></local:Asteroid>
+    </StackPanel>
+</Page>

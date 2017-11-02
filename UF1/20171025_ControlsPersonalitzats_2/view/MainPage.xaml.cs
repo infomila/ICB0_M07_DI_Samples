@@ -57,6 +57,7 @@ namespace _20171025_ControlsPersonalitzats_2
                 eo.Emp = ep;
                 grdEmpleats.Children.Add(eo);
             }
+            Empleat.GetEmpleats()[0].Nom = "Txumari";
         }
     }
 }

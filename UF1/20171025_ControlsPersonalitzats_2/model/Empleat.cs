@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,12 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace _20171025_ControlsPersonalitzats_2
 {
-    public class Empleat
+    public class Empleat : INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
         // SINGLETON 
         static List<Empleat> emp;
 

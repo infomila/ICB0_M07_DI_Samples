@@ -4,19 +4,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{AB3F606B-4269-47E8-900D-3D4EB098D8DC}</ProjectGuid>
+    <ProjectGuid>{DFA17C4E-1F3B-4DE7-913D-819C6146BFDD}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_20171025_ControlsPersonalitzats_2</RootNamespace>
-    <AssemblyName>20171025_ControlsPersonalitzats_2</AssemblyName>
+    <RootNamespace>Controls_Personalitzats_3</RootNamespace>
+    <AssemblyName>Controls_Personalitzats_3</AssemblyName>
     <DefaultLanguage>es-ES</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>20171025_ControlsPersonalitzats_2_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Controls_Personalitzats_3_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -95,14 +95,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="model\Empleat.cs" />
-    <Compile Include="view\EmpleatObjUI.xaml.cs">
-      <DependentUpon>EmpleatObjUI.xaml</DependentUpon>
+    <Compile Include="view\AsteroidUI.xaml.cs">
+      <DependentUpon>AsteroidUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="view\EmpleatUI.xaml.cs">
-      <DependentUpon>EmpleatUI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="view\MainPage.xaml.cs">
+    <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,13 +107,9 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="20171025_ControlsPersonalitzats_2_TemporaryKey.pfx" />
+    <None Include="Controls_Personalitzats_3_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Azrael.jpg" />
-    <Content Include="Assets\Gargamel.jpg" />
-    <Content Include="Assets\GranBarrufet.jpg" />
-    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -132,15 +124,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="view\EmpleatObjUI.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="view\EmpleatUI.xaml">
+    <Page Include="view\AsteroidUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="view\MainPage.xaml">
+    <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
