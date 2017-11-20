@@ -36,5 +36,22 @@
             </FlyoutBase.AttachedFlyout>
              
         </TextBox>
+
+        <TextBox x:Name="txbOther"   TextChanged="txbOther_ContextMenuOpening">
+             
+
+        </TextBox>
+
+        <Popup
+                    x:Name="MyPopup"
+                    Width="320"
+                    Height="60"
+                    IsLightDismissEnabled="True">
+            <ListView x:Name="lsvInner" SelectionChanged="lsvInner_SelectionChanged">
+
+            </ListView>
+
+        </Popup>
+
     </StackPanel>
 </Page>

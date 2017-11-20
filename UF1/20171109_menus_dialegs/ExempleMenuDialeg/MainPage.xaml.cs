@@ -114,6 +114,25 @@ namespace ExempleMenuDialeg
             }
         }
 
-
+        private void txbOther_ContextMenuOpening(object sender, TextChangedEventArgs e)
+        {
+            LlistaParaules lp = new LlistaParaules();
+            List < string > paraules = new List<string>() { "First", "Second", "Third", "Fourth", "Fifth" };
+            paraules = paraules.Where(i => i.StartsWith(txbOther.Text)).ToList();
+            lsvInner.ItemsSource = paraules;
+            
+            MyPopup.IsOpen = paraules.Count > 0 && (paraules.Count==1 || !paraules[0].Equals(txbOther.Text));
+            txbOther.Focus(FocusState.Pointer);
+        }
+ 
+        private void lsvInner_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(lsvInner.SelectedValue!=null)
+            {
+                txbOther.Text = lsvInner.SelectedValue.ToString();                
+               MyPopup.IsOpen = false;
+                txbOther.Focus(FocusState.Pointer);
+            }
+        }
     }
 }
