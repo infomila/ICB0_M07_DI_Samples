@@ -32,5 +32,10 @@ namespace _20171122_SQLite
         {
             txbResultat.ItemsSource = DeptDB.GetAllDept();
         }
+
+        private void btnFiltrar_Click(object sender, RoutedEventArgs e)
+        {
+            txbResultat.ItemsSource = DeptDB.GetAllDept(txbNumero.Text);
+        }
     }
 }

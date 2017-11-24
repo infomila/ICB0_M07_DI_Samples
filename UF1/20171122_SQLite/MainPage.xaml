@@ -14,31 +14,45 @@
         </ItemsPanelTemplate>
         <DataTemplate x:Key="DataTemplateDeptHead">
             <Border BorderBrush="Black" BorderThickness="1,1,1,0" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0" Background="LightGray" BorderBrush="Gray" BorderThickness="0,0,1,0" Padding="10">
-                    <TextBlock Text="Número"></TextBlock>
-                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="LightGray" BorderBrush="Gray" BorderThickness="0,0,1,0" Padding="10">
+                        <TextBlock Text="Número"></TextBlock>
+                    </Border>
                     <Border Grid.Column="1" Background="LightGray" BorderBrush="Gray" BorderThickness="0,0,1,0" Padding="10">
-                    <TextBlock Text="Nom"></TextBlock>
-                </Border>
+                        <TextBlock Text="Nom"></TextBlock>
+                    </Border>
                     <Border Grid.Column="2" Background="LightGray" BorderBrush="Gray" BorderThickness="0,0,0,0" Padding="10">
-                    <TextBlock Text="Localitat"></TextBlock>
-                </Border>
-            </Grid>
+                        <TextBlock Text="Localitat"></TextBlock>
+                    </Border>
+                </Grid>
             </Border>
         </DataTemplate>
     </Page.Resources>
 
 
-    <Grid Padding="20" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView x:Name="txbResultat"
+    <Grid Padding="20" 
+          Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBox  Grid.Row="0" Grid.Column="0"  x:Name="txbNumero" PlaceholderText="[introduir num. dept]"   ></TextBox>
+        <Button   Grid.Row="0" Grid.Column="1"  x:Name="btnFiltrar" Content="Filtrar"  
+                  Click="btnFiltrar_Click"
+                  ></Button>
+        <ListView Grid.Row="1" Grid.Column="0"  Grid.ColumnSpan="2" 
+                  x:Name="txbResultat"
                  VerticalAlignment="Stretch" 
-                 HorizontalAlignment="Stretch"  >
+                 HorizontalAlignment="Stretch"  Margin="40,8,0,40" >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" 

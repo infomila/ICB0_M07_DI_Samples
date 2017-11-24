@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace _20171122_SQLite.db
     class DeptDB
     {
 
-        public static List<Dept> GetAllDept()
+        public static List<Dept> GetAllDept( string numeroDept = null )
         {
             List<Dept> depts = new List<Dept>();
             //---------------------------------
@@ -24,7 +25,16 @@ namespace _20171122_SQLite.db
                     // crear la comanda SQL
                     using( DbCommand consulta = connexio.CreateCommand())
                     {
+
+
                         consulta.CommandText = "select * from dept";
+                        if(numeroDept!=null)
+                        {
+                            consulta.CommandText += " where dept_no = :numDept";
+
+                            UtilsDB.AddParameter(consulta, "numDept", numeroDept, DbType.Int32);
+
+                        }
                         DbDataReader reader = consulta.ExecuteReader();
                         while(reader.Read())
                         {

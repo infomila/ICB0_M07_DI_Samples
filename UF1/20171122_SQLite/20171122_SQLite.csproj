@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="db\DeptDB.cs" />
     <Compile Include="db\EmpresaContext.cs" />
+    <Compile Include="db\UtilsDB.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
