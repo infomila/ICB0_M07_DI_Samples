@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace _20171122_SQLite.model
 {
-    class Dept
+    class Dept: INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /*
          CREATE TABLE DEPT (
              DEPT_NO  NUMERIC(2) CONSTRAINT DEPT_PK PRIMARY KEY  CONSTRAINT DEPT_CK_COD_POSITIU CHECK (DEPT_NO > 0),
@@ -28,7 +32,10 @@ namespace _20171122_SQLite.model
         public int Numero
         {
             get { return mNumero; }
-            set { mNumero = value; }
+            set {
+                mNumero = value;
+                OnPropertyChanged(); 
+            }
         }
 
         private string mNom;
@@ -36,15 +43,27 @@ namespace _20171122_SQLite.model
         public string Nom
         {
             get { return mNom; }
-            set { mNom = value; }
+            set { mNom = value;
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Numero"));
+                OnPropertyChanged();
+            }
         }
 
         private string mLocalitat;
 
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
         public string Localitat
         {
             get { return mLocalitat; }
-            set { mLocalitat = value; }
+            set { mLocalitat = value;
+                OnPropertyChanged();
+            }
         }
 
         #endregion

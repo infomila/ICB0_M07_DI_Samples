@@ -17,7 +17,7 @@ namespace _20171122_SQLite.db
                 string conString = "server = 127.0.0.1; uid = root; pwd = ; database = cds";
                 using (MySqlConnection connection = new MySqlConnection(conString))
                 {
-                    DbConnectionStringBuilder 
+                     
                     connection.Open();
                     MySqlCommand getCommand = connection.CreateCommand();
                     getCommand.CommandText = "SELECT whatToDO FROM todo";

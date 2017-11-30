@@ -1,4 +1,5 @@
 ﻿using _20171122_SQLite.db;
+using _20171122_SQLite.model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,12 +31,29 @@ namespace _20171122_SQLite
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            txbResultat.ItemsSource = DeptDB.GetAllDept();
+            lsvDept.ItemsSource = DeptDB.GetAllDept();
         }
 
         private void btnFiltrar_Click(object sender, RoutedEventArgs e)
         {
-            txbResultat.ItemsSource = DeptDB.GetAllDept(txbNumero.Text);
+            lsvDept.ItemsSource = DeptDB.GetAllDept(txbNumero.Text, txbLocalitat.Text);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if(lsvDept.SelectedValue!=null)
+            {
+                DeptDB.RemoveDept(((Dept)lsvDept.SelectedValue).Numero);
+            }
+        }
+
+        private void lsvDept_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lsvDept.SelectedValue != null)
+            {
+                long numEmp = DeptDB.CountEmp(((Dept)lsvDept.SelectedValue).Numero);
+                btnDelete.IsEnabled = ( numEmp == 0);
+            }
         }
     }
 }
